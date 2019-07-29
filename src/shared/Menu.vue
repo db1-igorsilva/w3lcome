@@ -24,19 +24,17 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class Menu extends Vue {}
 </script>
 
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style lang="sass">
+.menu__header
+    height: 100px
+    text-decoration: none
+    display: flex
+    flex-direction: column
+    &_db1info
+        height: 100%
+    &_title
+        height: 100%
+        font-size: 2em
+    &_button
+        font-size: 1.5em
 </style>
