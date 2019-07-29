@@ -33,5 +33,81 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VisitService from '@/domain/visit/Visit.service';
 
-export default class Visits extends Vue {}
+@Component({})
+export default class Visits extends Vue {
+
+  headers = [
+        {
+            text: 'ID',
+            align: 'left',
+            value: 'id'
+        },
+        {
+            text: 'Date',
+            value: 'visit_date'
+        },
+        {
+            text: 'Presentation Start',
+            value: 'start_time'
+        },
+        {
+            text: 'Presentation End',
+            value: 'end_time'
+        },
+        {
+            text: 'Guest',
+            value: 'guest'
+        },
+        {
+            text: 'W3lcome Text',
+            value: 'welcome_text'
+        },
+        {
+            text: 'Update',
+            value: 'update'
+        },
+        {
+            text: 'Delete',
+            value: 'remove'
+        }
+    ];
+    visits = [];
+    typed_filter = '';
+    compareStartDate = '';
+    compareEndDate = '';
+
+    filteredVisits() {
+        if (this.compareStartDate && this.compareEndDate && this.typed_filter) {
+            let wordFilter = new RegExp(this.typed_filter.trim(), 'i');
+            return this.visits.filter(visit => visit.date >= this.compareStartDate && visit.date <= this.compareEndDate).filter(visit => wordFilter.test(visit.guest));
+        }
+        if (this.compareStartDate && this.compareEndDate) {
+            return this.visits.filter(visit => visit.date >= this.compareStartDate && visit.date <= this.compareEndDate);
+        }
+        if (this.typed_filter) {
+            let wordFilter = new RegExp(this.typed_filter.trim(), 'i')
+            return this.visits.filter(visit => wordFilter.test(visit.guest));
+        }
+        return this.visits;
+    }
+
+    remove (visit) {
+        VisitService.delete(visit)
+            .then(() => {
+                let index = this.visits.indexOf(visit);
+                this.visits.splice(index, 1);
+            },
+            error => {
+                console.log(error);
+            });
+    }
+
+    created () {
+        VisitService.getAll()
+            .then(getResponse => {
+                this.visits = getResponse.data;
+            });
+    }
+
+}
 </script>
