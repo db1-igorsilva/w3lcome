@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import VisitService from '@/domain/visit/Visit.service';
 
 export default class Visits extends Vue {}
 </script>
