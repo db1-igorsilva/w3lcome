@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Visit from '@/domain/visit/Visit.entity';
 import VisitService from '@/domain/visit/Visit.service';
 
 @Component({})
@@ -71,7 +72,7 @@ export default class Visits extends Vue {
             value: 'remove'
         }
     ];
-    visits = [];
+    visits = Array();
     typed_filter = '';
     compareStartDate = '';
     compareEndDate = '';
@@ -79,10 +80,10 @@ export default class Visits extends Vue {
     filteredVisits() {
         if (this.compareStartDate && this.compareEndDate && this.typed_filter) {
             let wordFilter = new RegExp(this.typed_filter.trim(), 'i');
-            return this.visits.filter(visit => visit.date >= this.compareStartDate && visit.date <= this.compareEndDate).filter(visit => wordFilter.test(visit.guest));
+            return this.visits.filter(visit => visit.getDate() >= this.compareStartDate && visit.getDate() <= this.compareEndDate).filter(visit => wordFilter.test(visit.guest));
         }
         if (this.compareStartDate && this.compareEndDate) {
-            return this.visits.filter(visit => visit.date >= this.compareStartDate && visit.date <= this.compareEndDate);
+            return this.visits.filter(visit => visit.getDate() >= this.compareStartDate && visit.getDate() <= this.compareEndDate);
         }
         if (this.typed_filter) {
             let wordFilter = new RegExp(this.typed_filter.trim(), 'i')
@@ -91,7 +92,7 @@ export default class Visits extends Vue {
         return this.visits;
     }
 
-    remove (visit) {
+    remove (visit: Visit) {
         VisitService.delete(visit)
             .then(() => {
                 let index = this.visits.indexOf(visit);
