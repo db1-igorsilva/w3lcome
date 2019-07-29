@@ -111,3 +111,24 @@ export default class Visits extends Vue {
 
 }
 </script>
+
+<style lang="sass" scoped>
+.not_full_width
+    width: 95%
+.button
+    border: 1px solid black
+    text-decoration: none
+.datetime__field
+    border-bottom: 1px solid #888
+    padding: 1%
+    padding-bottom: 0.5%
+    padding-left: 0
+.datetime
+    width: 100%
+    height: 75%
+    display: flex
+    flex-direction: column
+    text-align: left
+    .time_label
+        padding-top: 10px
+</style>
