@@ -10,7 +10,7 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator';
-import Menu from '@/components/Menu.vue';
+import Menu from '@/shared/Menu.vue';
 
 @Component({
   components: {
