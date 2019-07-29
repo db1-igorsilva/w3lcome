@@ -1,4 +1,4 @@
-import { http } from '../../main';
+import { http } from '@/main';
 import Visit from '@/domain/visit/Visit.entity';
 
 export default class VisitService {
