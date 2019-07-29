@@ -65,16 +65,16 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Visit from '@/domain/visit/Visit.entity';
 import VisitService from '@/domain/visit/Visit.service';
-import VisitPerson from '@/domain/visitperson/VisitPerson.entity';
-import VisitPersonService from '@/domain/visitperson/VisitPerson.service';
+import VisitPerson from '@/domain/visitPerson/VisitPerson.entity';
+import VisitPersonService from '@/domain/visitPerson/VisitPerson.service';
 
 @Component
 export default class NewVisit extends Vue {
 
   visit = new Visit({}, {}, {}, {}, {}, {});
     id = this.$route.params.id;
-    onCreatePersons = [];
-    persons = [];
+    onCreatePersons = Array();
+    persons = Array();
     person = '';
     save() {
         VisitService.save(this.visit)
@@ -98,18 +98,18 @@ export default class NewVisit extends Vue {
         }
     }
 
-    removeFromCreatedPersons (visitPerson) {
+    removeFromCreatedPersons (visitPerson: VisitPerson) {
         VisitPersonService.delete(visitPerson)
             .then(() => {
                 let index = this.onCreatePersons.indexOf(visitPerson);
                 this.onCreatePersons.splice(index, 1);
             },
-            error => {
+            (error: any) => {
                 console.log(error);
             });
     }
 
-    removeFromPersons (person) {
+    removeFromPersons (person: string) {
         let index = this.persons.indexOf(person);
         this.persons.splice(index, 1);
     }
@@ -120,8 +120,8 @@ export default class NewVisit extends Vue {
                 .then(visit => {
                     this.visit = visit.data;
                 });
-            VisitPersonService.getAll().then(response => {
-                let filteredResponse = response.data.filter(resp => this.id == resp.visit);
+            VisitPersonService.getAll().then((response: any) => {
+                let filteredResponse = response.data.filter((resp: any) => this.id == resp.visit);
                 this.onCreatePersons = filteredResponse;
             });
         }
