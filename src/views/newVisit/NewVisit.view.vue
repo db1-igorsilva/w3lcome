@@ -68,5 +68,64 @@ import VisitService from '@/domain/visit/Visit.service';
 import VisitPerson from '@/domain/visitperson/VisitPerson.entity';
 import VisitPersonService from '@/domain/visitperson/VisitPerson.service';
 
-export default class NewVisit extends Vue {}
+@Component
+export default class NewVisit extends Vue {
+
+  visit = new Visit({}, {}, {}, {}, {}, {});
+    id = this.$route.params.id;
+    onCreatePersons = [];
+    persons = [];
+    person = '';
+    save() {
+        VisitService.save(this.visit)
+        .then(response => {
+            let idToSave = response.data.id;
+            this.persons
+                .map(person => {
+                    VisitPersonService.save(person, idToSave);
+                })
+        })
+        .then(() => {
+            this.$router.push({ name: 'visits' });
+        })
+    }
+
+    addPerson() {
+        if (this.person) {
+            this.persons.push(this.person);
+        } else {
+            alert('Every person needs to have a name.');
+        }
+    }
+
+    removeFromCreatedPersons (visitPerson) {
+        VisitPersonService.delete(visitPerson)
+            .then(() => {
+                let index = this.onCreatePersons.indexOf(visitPerson);
+                this.onCreatePersons.splice(index, 1);
+            },
+            error => {
+                console.log(error);
+            });
+    }
+
+    removeFromPersons (person) {
+        let index = this.persons.indexOf(person);
+        this.persons.splice(index, 1);
+    }
+
+    created() {
+        if (this.id) {
+            VisitService.find(this.id)
+                .then(visit => {
+                    this.visit = visit.data;
+                });
+            VisitPersonService.getAll().then(response => {
+                let filteredResponse = response.data.filter(resp => this.id == resp.visit);
+                this.onCreatePersons = filteredResponse;
+            });
+        }
+    }
+
+}
 </script>
