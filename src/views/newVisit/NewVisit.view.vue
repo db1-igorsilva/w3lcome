@@ -63,6 +63,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Visit from '@/domain/visit/Visit.entity';
+import VisitService from '@/domain/visit/Visit.service';
+import VisitPerson from '@/domain/visitperson/VisitPerson.entity';
+import VisitPersonService from '@/domain/visitperson/VisitPerson.service';
 
 export default class NewVisit extends Vue {}
 </script>
