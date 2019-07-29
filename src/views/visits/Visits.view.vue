@@ -1,6 +1,5 @@
 <template>
   <div class="visits">
-    <Menu/>
   </div>
 </template>
 
