@@ -6,7 +6,7 @@ import router from '@/router'
 import axios from 'axios'
 
 Vue.use(Vuetify, {
-  icon: 'md'
+  iconfont: 'md'
 })
 
 export const http = axios.create({
