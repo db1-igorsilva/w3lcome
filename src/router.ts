@@ -18,6 +18,11 @@ export default new Router({
       path: '/newVisit',
       name: 'newVisit',
       component: NewVisit
+    },
+    {
+      path: '/newVisit/:id',
+      name: 'update',
+      component: NewVisit
     }
   ]
 })
