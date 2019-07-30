@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <Menu> </Menu>
-    <router-view/>
-  </div>
+    <section>
+      <router-view></router-view>
+    </section>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -22,4 +24,9 @@ export default class App extends Vue {}
 <style lang='sass'>
 #app
   font-family: 'Flexo', sans-serif
+input:focus,
+select:focus,
+textarea:focus,
+button:focus
+  outline: none
 </style>
