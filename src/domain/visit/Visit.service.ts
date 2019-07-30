@@ -30,6 +30,6 @@ export default class VisitService {
   }
 
   static delete (visit: Visit) {
-    return http.delete('visit/' + visit.dd)
+    return http.delete('visit/' + visit.id)
   }
 }
