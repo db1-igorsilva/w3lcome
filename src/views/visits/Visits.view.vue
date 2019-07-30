@@ -14,12 +14,12 @@
 
             <v-data-table :headers="headers" :items="filteredVisits()" class="not_full_width elevation-1">
                 <template v-slot:items="filteredVisits">
-                    <td> {{ filteredVisits.item.getId }} </td>
-                    <td> {{ filteredVisits.item.getDate }} </td>
-                    <td> {{ filteredVisits.item.getPresentationStartTime }} </td>
-                    <td> {{ filteredVisits.item.getPresentationEndTime }} </td>
-                    <td> {{ filteredVisits.item.getGuest }} </td>
-                    <td> {{ filteredVisits.item.getWelcomeText }} </td>
+                    <td> {{ filteredVisits.item.id }} </td>
+                    <td> {{ filteredVisits.item.date }} </td>
+                    <td> {{ filteredVisits.item.presentationStartTime }} </td>
+                    <td> {{ filteredVisits.item.presentationEndTime }} </td>
+                    <td> {{ filteredVisits.item.guest }} </td>
+                    <td> {{ filteredVisits.item.welcomeText }} </td>
                     <td> <router-link style="text-decoration: none" :to="{name: 'update', params: { id: filteredVisits.item.id }}"> <v-btn class="button"> Update </v-btn> </router-link> </td>
                     <td> <v-btn class="button" @click="remove(filteredVisits.item)"> Delete </v-btn> </td>
                 </template>
@@ -78,14 +78,14 @@ export default class Visits extends Vue {
     filteredVisits () {
       if (this.compareStartDate && this.compareEndDate && this.typedFilter) {
         let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
-        return this.visits.filter(visit => visit.getDate >= new Date(this.compareStartDate) && visit.getDate <= new Date(this.compareEndDate)).filter(visit => wordFilter.test(visit.guest))
+        return this.visits.filter(visit => new Date(visit.date) >= new Date(this.compareStartDate) && new Date(visit.date) <= new Date(this.compareEndDate)).filter(visit => wordFilter.test(visit.guest))
       }
       if (this.compareStartDate && this.compareEndDate) {
-        return this.visits.filter(visit => visit.getDate >= new Date(this.compareStartDate) && visit.getDate <= new Date(this.compareEndDate))
+        return this.visits.filter(visit => new Date(visit.date) >= new Date(this.compareStartDate) && new Date(visit.date) <= new Date(this.compareEndDate))
       }
       if (this.typedFilter) {
         let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
-        return this.visits.filter(visit => wordFilter.test(visit.getGuest))
+        return this.visits.filter(visit => wordFilter.test(visit.guest))
       }
       return this.visits
     }
