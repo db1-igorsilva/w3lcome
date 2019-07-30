@@ -32,6 +32,8 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Visit from '@/domain/visit/Visit.entity'
 import VisitService from '@/domain/visit/Visit.service'
+import VisitPerson from '../../domain/visitPerson/VisitPerson.entity';
+import VisitPersonService from '../../domain/visitPerson/VisitPerson.service';
 
 @Component({})
 export default class Visits extends Vue {
@@ -90,7 +92,9 @@ export default class Visits extends Vue {
       return this.visits
     }
 
+    // CHANGE TO CASCADE DELETE LATER
     remove (visit: Visit) {
+      let allPersons: any = VisitPersonService.getAll().then(resp => console.log(resp.data.value));
       VisitService.delete(visit)
         .then(() => {
           let index = this.visits.indexOf(visit)
