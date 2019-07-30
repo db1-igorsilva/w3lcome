@@ -1,8 +1,10 @@
-import Vue from 'vue';
-import '@/plugins/vuetify';
-import App from '@/App.vue';
-import router from '@/router';
-import axios from 'axios';
+import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
+import App from '@/App.vue'
+import router from '@/router'
+import axios from 'axios'
+
+Vue.use(Vuetify)
 
 export const http = axios.create({
   baseURL: 'http://localhost:3000/'
