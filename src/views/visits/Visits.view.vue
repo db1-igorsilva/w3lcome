@@ -78,10 +78,10 @@ export default class Visits extends Vue {
     filteredVisits () {
       if (this.compareStartDate && this.compareEndDate && this.typedFilter) {
         let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
-        return this.visits.filter(visit => visit.getDate >= this.compareStartDate && visit.getDate <= this.compareEndDate).filter(visit => wordFilter.test(visit.getGuest))
+        return this.visits.filter(visit => visit.getDate >= new Date(this.compareStartDate) && visit.getDate <= new Date(this.compareEndDate)).filter(visit => wordFilter.test(visit.guest))
       }
       if (this.compareStartDate && this.compareEndDate) {
-        return this.visits.filter(visit => visit.getDate >= this.compareStartDate && visit.getDate <= this.compareEndDate)
+        return this.visits.filter(visit => visit.getDate >= new Date(this.compareStartDate) && visit.getDate <= new Date(this.compareEndDate))
       }
       if (this.typedFilter) {
         let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
