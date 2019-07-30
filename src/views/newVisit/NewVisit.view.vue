@@ -128,7 +128,7 @@ export default class NewVisit extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .not_full_width
     width: 95%
     height: 100%
