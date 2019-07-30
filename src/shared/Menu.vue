@@ -24,7 +24,7 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class Menu extends Vue {}
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .menu__header
     height: 100px
     text-decoration: none
