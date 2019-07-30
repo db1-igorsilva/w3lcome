@@ -62,71 +62,69 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Visit from '@/domain/visit/Visit.entity';
-import VisitService from '@/domain/visit/Visit.service';
-import VisitPerson from '@/domain/visitPerson/VisitPerson.entity';
-import VisitPersonService from '@/domain/visitPerson/VisitPerson.service';
+import { Component, Vue } from 'vue-property-decorator'
+import Visit from '@/domain/visit/Visit.entity'
+import VisitService from '@/domain/visit/Visit.service'
+import VisitPerson from '@/domain/visitPerson/VisitPerson.entity'
+import VisitPersonService from '@/domain/visitPerson/VisitPerson.service'
 
 @Component
 export default class NewVisit extends Vue {
-
-  visit = new Visit({}, {}, {}, {}, {}, {});
+  visit = new Visit({}, {}, {}, {}, '', '');
     id = this.$route.params.id;
-    onCreatePersons = Array();
-    persons = Array();
+    onCreatePersons = <string[]>[];
+    persons = <string[]>[];
     person = '';
-    save() {
-        VisitService.save(this.visit)
+    save () {
+      VisitService.save(this.visit)
         .then(response => {
-            let idToSave = response.data.id;
-            this.persons
-                .map(person => {
-                    VisitPersonService.save(person, idToSave);
-                })
+          let idToSave = response.data.id
+          this.persons
+            .map(person => {
+              VisitPersonService.save(person, idToSave)
+            })
         })
         .then(() => {
-            this.$router.push({ name: 'visits' });
+          this.$router.push({ name: 'visits' })
         })
     }
 
-    addPerson() {
-        if (this.person) {
-            this.persons.push(this.person);
-        } else {
-            alert('Every person needs to have a name.');
-        }
+    addPerson () {
+      if (this.person) {
+        this.persons.push(this.person)
+      } else {
+        alert('Every person needs to have a name.')
+      }
     }
 
-    removeFromCreatedPersons (visitPerson: VisitPerson) {
-        VisitPersonService.delete(visitPerson)
-            .then(() => {
-                let index = this.onCreatePersons.indexOf(visitPerson);
-                this.onCreatePersons.splice(index, 1);
-            },
-            (error: any) => {
-                console.log(error);
-            });
+    removeFromCreatedPersons (visitPerson: string) {
+      VisitPersonService.delete(visitPerson)
+        .then(() => {
+          let index = this.onCreatePersons.indexOf(visitPerson)
+          this.onCreatePersons.splice(index, 1)
+        },
+        (error: any) => {
+          console.log(error)
+        })
     }
 
     removeFromPersons (person: string) {
-        let index = this.persons.indexOf(person);
-        this.persons.splice(index, 1);
+      let index = this.persons.indexOf(person)
+      this.persons.splice(index, 1)
     }
 
-    created() {
-        if (this.id) {
-            VisitService.find(this.id)
-                .then(visit => {
-                    this.visit = visit.data;
-                });
-            VisitPersonService.getAll().then((response: any) => {
-                let filteredResponse = response.data.filter((resp: any) => this.id == resp.visit);
-                this.onCreatePersons = filteredResponse;
-            });
-        }
+    created () {
+      if (this.id) {
+        VisitService.find(this.id)
+          .then(visit => {
+            this.visit = visit.data
+          })
+        VisitPersonService.getAll().then((response: any) => {
+          let filteredResponse = response.data.filter((resp: any) => this.id === resp.visit)
+          this.onCreatePersons = filteredResponse
+        })
+      }
     }
-
 }
 </script>
 

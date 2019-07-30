@@ -1,7 +1,7 @@
 <template>
   <center>
         <div class="not_full_width">
-            <v-flex @input="typed_filter = $event.target.value">
+            <v-flex @input="typedFilter = $event.target.value">
                 <v-text-field label="Guest Name"/>
             </v-flex>
             <div class="datetime">
@@ -13,7 +13,7 @@
 
             <br>
 
-            <v-data-table :headers="headers" :items="filteredVisits" class="not_full_width elevation-1">
+            <v-data-table :headers="headers" :items="filteredVisits" class="not_full_width elevation-1" name="visits_table">
                 <template v-slot:items="filteredVisits">
                     <td> {{ filteredVisits.item.id }} </td>
                     <td> {{ filteredVisits.item.date }} </td>
@@ -30,86 +30,84 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Visit from '@/domain/visit/Visit.entity';
-import VisitService from '@/domain/visit/Visit.service';
+import { Component, Vue } from 'vue-property-decorator'
+import Visit from '@/domain/visit/Visit.entity'
+import VisitService from '@/domain/visit/Visit.service'
 
 @Component({})
 export default class Visits extends Vue {
-
   headers = [
-        {
-            text: 'ID',
-            align: 'left',
-            value: 'id'
-        },
-        {
-            text: 'Date',
-            value: 'visit_date'
-        },
-        {
-            text: 'Presentation Start',
-            value: 'start_time'
-        },
-        {
-            text: 'Presentation End',
-            value: 'end_time'
-        },
-        {
-            text: 'Guest',
-            value: 'guest'
-        },
-        {
-            text: 'W3lcome Text',
-            value: 'welcome_text'
-        },
-        {
-            text: 'Update',
-            value: 'update'
-        },
-        {
-            text: 'Delete',
-            value: 'remove'
-        }
-    ];
-    visits = Array();
-    typed_filter = '';
+    {
+      text: 'ID',
+      align: 'left',
+      value: 'id'
+    },
+    {
+      text: 'Date',
+      value: 'visit_date'
+    },
+    {
+      text: 'Presentation Start',
+      value: 'start_time'
+    },
+    {
+      text: 'Presentation End',
+      value: 'end_time'
+    },
+    {
+      text: 'Guest',
+      value: 'guest'
+    },
+    {
+      text: 'W3lcome Text',
+      value: 'welcome_text'
+    },
+    {
+      text: 'Update',
+      value: 'update'
+    },
+    {
+      text: 'Delete',
+      value: 'remove'
+    }
+  ];
+    visits: Visit[] = [];
+    typedFilter = '';
     compareStartDate = '';
     compareEndDate = '';
 
-    filteredVisits() {
-        if (this.compareStartDate && this.compareEndDate && this.typed_filter) {
-            let wordFilter = new RegExp(this.typed_filter.trim(), 'i');
-            return this.visits.filter(visit => visit.getDate() >= this.compareStartDate && visit.getDate() <= this.compareEndDate).filter(visit => wordFilter.test(visit.guest));
-        }
-        if (this.compareStartDate && this.compareEndDate) {
-            return this.visits.filter(visit => visit.getDate() >= this.compareStartDate && visit.getDate() <= this.compareEndDate);
-        }
-        if (this.typed_filter) {
-            let wordFilter = new RegExp(this.typed_filter.trim(), 'i')
-            return this.visits.filter(visit => wordFilter.test(visit.guest));
-        }
-        return this.visits;
+    filteredVisits () {
+      if (this.compareStartDate && this.compareEndDate && this.typedFilter) {
+        let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
+        return this.visits.filter(visit => visit.getDate >= this.compareStartDate && visit.getDate <= this.compareEndDate).filter(visit => wordFilter.test(visit.getGuest))
+      }
+      if (this.compareStartDate && this.compareEndDate) {
+        return this.visits.filter(visit => visit.getDate >= this.compareStartDate && visit.getDate <= this.compareEndDate)
+      }
+      if (this.typedFilter) {
+        let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
+        return this.visits.filter(visit => wordFilter.test(visit.getGuest))
+      }
+      return this.visits
     }
 
     remove (visit: Visit) {
-        VisitService.delete(visit)
-            .then(() => {
-                let index = this.visits.indexOf(visit);
-                this.visits.splice(index, 1);
-            },
-            error => {
-                console.log(error);
-            });
+      VisitService.delete(visit)
+        .then(() => {
+          let index = this.visits.indexOf(visit)
+          this.visits.splice(index, 1)
+        },
+        error => {
+          console.log(error)
+        })
     }
 
     created () {
-        VisitService.getAll()
-            .then(getResponse => {
-                this.visits = getResponse.data;
-            });
+      VisitService.getAll()
+        .then(getResponse => {
+          this.visits = getResponse.data
+        })
     }
-
 }
 </script>
 
