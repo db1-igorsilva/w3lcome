@@ -1,29 +1,5 @@
 export default class Visit {
-  constructor (private id: any, private date: Date,
-    private presentationStartTime: any, private presentationEndTime: any,
-    private guest: string, private welcomeText: string) {}
-
-  get getId() {
-    return this.id;
-  }
-
-  get getDate() {
-    return this.date;
-  }
-
-  get getPresentationStartTime() {
-    return this.presentationStartTime;
-  }
-
-  get getPresentationEndTime() {
-    return this.presentationEndTime;
-  }
-
-  get getGuest() {
-    return this.guest;
-  }
-
-  get getWelcomeText() {
-    return this.welcomeText;
-  }
+  constructor (public id: any, public date: Date,
+    public presentationStartTime: any, public presentationEndTime: any,
+    public guest: string, public welcomeText: string) {}
 }
