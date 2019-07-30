@@ -3,22 +3,22 @@ import Visit from '@/domain/visit/Visit.entity'
 
 export default class VisitService {
   static save (visit: Visit) {
-    if (!visit.getGuest) {
+    if (!visit.guest) {
       alert('Every visit needs a Guest.')
       throw new Error('Every visit needs a guest.')
     }
-    if (!visit.getWelcomeText) {
+    if (!visit.welcomeText) {
       alert('Every visit needs to have a W3lcome Text.')
       throw new Error('Every visit needs to have a w3lcome text.')
     }
-    if (!visit.getDate) {
+    if (!visit.date) {
       alert('Every visit needs a Date to come over.')
       throw new Error('Every visit needs a Date ot come over.')
     }
-    if (!visit.getId) {
+    if (!visit.id) {
       return http.post('visit/post', visit)
     }
-    return http.put('visit/' + visit.getId, visit)
+    return http.put('visit/' + visit.id, visit)
   }
 
   static getAll () {
@@ -30,6 +30,6 @@ export default class VisitService {
   }
 
   static delete (visit: Visit) {
-    return http.delete('visit/' + visit.getId)
+    return http.delete('visit/' + visit.dd)
   }
 }
