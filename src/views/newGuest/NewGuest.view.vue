@@ -32,7 +32,7 @@
         <v-data-table :headers="headers" :items="filteredVisits()" class="not_full_width elevation-1">
             <template v-slot:items="filteredVisits">
                 <td> {{ filteredVisits.item.id }} </td>
-                <td> {{ filteredVisits.item.name }} </td>
+                <td style="word-break: break-all"> {{ filteredVisits.item.name }} </td>
                 <td> {{ filteredVisits.item.relationshipType }} </td>
                 <td> <v-btn class="button" @click="remove(filteredVisits.item)"> Delete </v-btn> </td>
             </template>
