@@ -63,6 +63,17 @@ export default class NewGuest extends Vue {
     GuestService.save(this.guest);
     this.guest = new Guest(null, '', null);
   }
+
+  remove (guest: Guest) {
+        GuestService.delete(guest)
+            .then(() => {
+                let index = this.guests.indexOf(guest)
+                this.guests.splice(index, 1)
+            },
+            error => {
+                console.log(error)
+            })
+  }
 }
 </script>
 
