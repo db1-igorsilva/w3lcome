@@ -1,24 +1,35 @@
 <template>
   <center>
     <div class="not_full_width">
-      <v-form class="not_full_width" @submit.prevent="save()">
+        <v-form class="not_full_width" @submit.prevent="save()">
 
-        <v-text-field
-            label="Guest"
-            :counter="160"
-            id="name"
-            name="name"
-            v-model="guest.name"/>
+            <v-text-field
+                label="Guest"
+                :counter="160"
+                id="name"
+                name="name"
+                v-model="guest.name"/>
 
-        <v-text-field
-            label="Relationship Type"
-            id="relationshipType"
-            name="relationshipType"
-            v-model="guest.relationshipType"/>
+            <v-text-field
+                label="Relationship Type"
+                id="relationshipType"
+                name="relationshipType"
+                v-model="guest.relationshipType"/>
 
-        <v-btn class="button" type="submit"> SUBMIT </v-btn>
+            <v-btn class="button" type="submit"> SUBMIT </v-btn>
 
-      </v-form>
+        </v-form>
+
+        <br>
+
+        <v-data-table :headers="headers" :items="guests" class="not_full_width elevation-1">
+            <template v-slot:items="guests">
+                <td> {{ guests.item.id }} </td>
+                <td> {{ guests.item.name }} </td>
+                <td> {{ guests.item.relationshipType }} </td>
+                <td> <v-btn class="button" @click="remove(guests.item)"> Delete </v-btn> </td>
+            </template>
+        </v-data-table>
     </div>
   </center>
 </template>
@@ -30,6 +41,21 @@ import GuestService from '@/domain/guest/Guest.service'
 
 @Component({})
 export default class NewGuest extends Vue {
+  headers = [
+    {
+      text: 'ID',
+      align: 'left',
+      value: 'id'
+    },
+    {
+      text: 'Name',
+      value: 'name'
+    },
+    {
+      text: 'Relationship Type',
+      value: 'relationshipType'
+    }
+  ];
   guest = new Guest(null, '', null);
   guests: Guest[] = [];
 
