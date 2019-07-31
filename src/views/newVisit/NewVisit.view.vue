@@ -45,6 +45,10 @@
                 <td> NAME </td>
                 <td> DELETE </td>
             </tr>
+            <tr v-for="(alreadyOnDatabasePerson, p) of onCreatePersons" :key="p">
+                <td> {{ alreadyOnDatabasePerson.person }} </td>
+                <td> <button @click.prevent="removeFromCreatedPersons(alreadyOnDatabasePerson)"> X </button> </td>
+            </tr>
             <tr v-for="(person, p) of persons" :key="`A-${p}`">
                 <td> {{ person }} </td>
                 <td> <button @click.prevent="removeFromPersons(person)"> X </button> </td>
@@ -68,9 +72,9 @@ import VisitPersonService from '@/domain/visitPerson/VisitPerson.service'
 export default class NewVisit extends Vue {
   person: string = '';
   persons: string[] = [];
-  onCreatePersons: string[] = [];
+  onCreatePersons: VisitPerson[] = [];
   visit = new Visit(null, new Date(), null, null, '', '');
-  id = null;
+  id = '';
 
   save (visit: Visit) {
     if (this.id) {
@@ -81,7 +85,7 @@ export default class NewVisit extends Vue {
         let idToSave = response.data.id
         this.persons
           .map(person => {
-            VisitPersonService.save(this.person, idToSave)
+            VisitPersonService.save(idToSave, person)
           })
       })
       .then(() => {
@@ -97,7 +101,7 @@ export default class NewVisit extends Vue {
     }
   }
 
-  removeFromCreatedPersons (visitPerson: string) {
+  removeFromCreatedPersons (visitPerson: VisitPerson) {
     VisitPersonService.delete(visitPerson)
       .then(() => {
         let index = this.onCreatePersons.indexOf(visitPerson)
@@ -111,6 +115,20 @@ export default class NewVisit extends Vue {
   removeFromPersons (person: string) {
     let index = this.persons.indexOf(person)
     this.persons.splice(index, 1)
+  }
+
+  created () {
+    this.id = this.$route.params.id;
+    if (this.id) {
+      VisitService.find(this.id)
+        .then(visit => {
+          this.visit = visit.data;
+        });
+      VisitPersonService.getAll().then(response => {
+        let filteredResponse = response.data.filter((resp: VisitPerson) => this.id == resp.visit);
+        this.onCreatePersons = filteredResponse;
+      });
+    }
   }
 }
 </script>
