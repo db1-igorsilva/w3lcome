@@ -40,16 +40,12 @@
             <v-btn class="button" type="submit"> ADD PERSON </v-btn>
         </v-form>
 
-        <table class="not_full_width">
-            <tr>
-                <td style="width: 100%"> NAME </td>
-                <td style="text-align: center"> DELETE </td>
-            </tr>
-            <tr v-for="(person, p) of persons" :key="`A-${p}`">
-                <td style="word-break: break-all"> {{ person }} </td>
-                <td> <v-btn class="button" @click.prevent="removeFromPersons(person)"> X </v-btn> </td>
-            </tr>
-        </table>
+        <v-data-table :headers="headers" :items="persons" class="not_full_width elevation-1">
+            <template v-slot:items="persons">
+                <td style="word-break: break-all"> {{ persons.item }} </td>
+                <td> <v-btn class="button" @click="removeFromPersons(persons.item)"> Delete </v-btn> </td>
+            </template>
+        </v-data-table>
         <v-btn class="button" type="submit"> SUBMIT </v-btn>
 
       </v-form>
@@ -66,6 +62,18 @@ import VisitPersonService from '@/domain/visitPerson/VisitPerson.service'
 
 @Component({})
 export default class NewVisit extends Vue {
+  headers = [
+    {
+      text: 'Person',
+      align: 'left',
+      value: 'person',
+      width: '100%'
+    },
+    {
+      text: 'Delete',
+      value: 'delete'
+    }
+  ];
   person: string = '';
   persons: string[] = [];
   onCreatePersons: VisitPerson[] = [];
