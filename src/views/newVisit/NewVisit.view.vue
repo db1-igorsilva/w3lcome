@@ -1,7 +1,7 @@
 <template>
   <center>
     <div class="not_full_width">
-      <v-form class="not_full_width" @submit.prevent="save(visit)">
+      <v-form @submit.prevent="save(visit)">
 
         <v-text-field
             label="Guest"
@@ -40,18 +40,18 @@
             <v-btn class="button" type="submit"> ADD PERSON </v-btn>
         </v-form>
 
-        <table class="half_width">
+        <table class="not_full_width">
             <tr>
-                <td> NAME </td>
-                <td> DELETE </td>
+                <td style="width: 100%"> NAME </td>
+                <td style="text-align: center"> DELETE </td>
             </tr>
             <tr v-for="(alreadyOnDatabasePerson, p) of onCreatePersons" :key="p">
-                <td> {{ alreadyOnDatabasePerson.person }} </td>
-                <td> <button @click.prevent="removeFromCreatedPersons(alreadyOnDatabasePerson)"> X </button> </td>
+                <td style="word-break: break-all">> {{ alreadyOnDatabasePerson.person }} </td>
+                <td> <v-btn class="button" @click.prevent="removeFromCreatedPersons(alreadyOnDatabasePerson)"> X </v-btn> </td>
             </tr>
             <tr v-for="(person, p) of persons" :key="`A-${p}`">
-                <td> {{ person }} </td>
-                <td> <button @click.prevent="removeFromPersons(person)"> X </button> </td>
+                <td style="word-break: break-all"> {{ person }} </td>
+                <td> <v-btn class="button" @click.prevent="removeFromPersons(person)"> X </v-btn> </td>
             </tr>
         </table>
         <v-btn class="button" type="submit"> SUBMIT </v-btn>
@@ -147,6 +147,7 @@ export default class NewVisit extends Vue {
         padding-top: 10px
 .button
     border: 1px solid black
+    text-decoration: none
 .datetime__field
     border-bottom: 1px solid #888
     padding: 1%
