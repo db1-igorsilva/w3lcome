@@ -1,7 +1,7 @@
 <template>
   <center>
     <div class="not_full_width">
-      <v-form class="not_full_width">
+      <v-form class="not_full_width" @submit.prevent="save()">
 
         <v-text-field
             label="Guest"
@@ -31,6 +31,12 @@ import GuestService from '@/domain/guest/Guest.service'
 @Component({})
 export default class NewGuest extends Vue {
   guest = new Guest(null, '', null);
+  guests: Guest[] = [];
+
+  save () {
+    GuestService.save(this.guest);
+    this.guest = new Guest(null, '', null);
+  }
 }
 </script>
 
