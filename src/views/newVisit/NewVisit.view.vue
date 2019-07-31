@@ -4,7 +4,7 @@
       <v-form class="not_full_width" @submit.prevent="save(visit)">
 
         <v-text-field
-            label="Guest Name"
+            label="Guest"
             :counter="160"
             id="guest"
             name="guest"
