@@ -26,6 +26,7 @@
             label="Filter by Guest"
             id="typedFilter"
             name="typedFilter"
+            class="not_full_width"
             v-model="typedFilter"/>
 
         <v-data-table :headers="headers" :items="filteredVisits()" class="not_full_width elevation-1">
