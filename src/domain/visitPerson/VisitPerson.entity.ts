@@ -1,5 +1,5 @@
 export default class VisitPerson {
   
-  constructor (public visit: any, public person: string) {}
+  constructor (public id: any, public visit: any, public person: string) {}
 
 }
