@@ -27,7 +27,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({})
-export default class NewVisit extends Vue {
+export default class NewGuest extends Vue {
 }
 </script>
 
