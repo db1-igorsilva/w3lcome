@@ -1,12 +1,5 @@
 export default class VisitPerson {
   
-  constructor (private person: string, private visit: any) {}
+  constructor (public visit: any, public person: string) {}
 
-  get getPerson () {
-    return this.person
-  }
-
-  get getVisit () {
-    return this.person
-  }
 }
