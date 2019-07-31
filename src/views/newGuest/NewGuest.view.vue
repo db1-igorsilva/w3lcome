@@ -30,7 +30,7 @@ import GuestService from '@/domain/guest/Guest.service'
 
 @Component({})
 export default class NewGuest extends Vue {
-  guest = new Guest(null, null);
+  guest = new Guest(null, '', null);
 }
 </script>
 
