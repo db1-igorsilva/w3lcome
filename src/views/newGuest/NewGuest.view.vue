@@ -22,6 +22,12 @@
 
         <br>
 
+        <v-text-field
+            label="Filter by Guest"
+            id="typedFilter"
+            name="typedFilter"
+            v-model="typedFilter"/>
+
         <v-data-table :headers="headers" :items="filteredVisits()" class="not_full_width elevation-1">
             <template v-slot:items="filteredVisits">
                 <td> {{ filteredVisits.item.id }} </td>
