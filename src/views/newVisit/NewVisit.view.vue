@@ -45,10 +45,6 @@
                 <td style="width: 100%"> NAME </td>
                 <td style="text-align: center"> DELETE </td>
             </tr>
-            <tr v-for="(alreadyOnDatabasePerson, p) of onCreatePersons" :key="p">
-                <td style="word-break: break-all">> {{ alreadyOnDatabasePerson.person }} </td>
-                <td> <v-btn class="button" @click.prevent="removeFromCreatedPersons(alreadyOnDatabasePerson)"> X </v-btn> </td>
-            </tr>
             <tr v-for="(person, p) of persons" :key="`A-${p}`">
                 <td style="word-break: break-all"> {{ person }} </td>
                 <td> <v-btn class="button" @click.prevent="removeFromPersons(person)"> X </v-btn> </td>
@@ -80,6 +76,9 @@ export default class NewVisit extends Vue {
     if (this.id) {
       visit.id = this.id;
     }
+    this.onCreatePersons.forEach((visitPerson: VisitPerson) => {
+      VisitPersonService.delete(visitPerson)
+    });
     VisitService.save(visit)
       .then(response => {
         let idToSave = response.data.id
@@ -127,6 +126,9 @@ export default class NewVisit extends Vue {
       VisitPersonService.getAll().then(response => {
         let filteredResponse = response.data.filter((resp: VisitPerson) => this.id == resp.visit);
         this.onCreatePersons = filteredResponse;
+        this.onCreatePersons.forEach((visitPerson: VisitPerson) => {
+          this.persons.push(visitPerson.person)
+        });
       });
     }
   }
