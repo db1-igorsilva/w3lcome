@@ -1,6 +1,6 @@
 export default class Guest {
   
-    constructor (public name: string, public relationshipType: any) {}
+    constructor (public id: any, public name: string, public relationshipType: any) {}
   
 }
   
