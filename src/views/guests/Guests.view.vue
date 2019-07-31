@@ -5,7 +5,6 @@
 
             <v-text-field
                 label="Guest"
-                :counter="160"
                 id="name"
                 name="name"
                 v-model="guest.name"/>
