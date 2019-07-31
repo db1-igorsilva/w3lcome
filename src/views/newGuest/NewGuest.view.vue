@@ -41,30 +41,34 @@ import GuestService from '@/domain/guest/Guest.service'
 
 @Component({})
 export default class NewGuest extends Vue {
-  headers = [
-    {
-      text: 'ID',
-      align: 'left',
-      value: 'id'
-    },
-    {
-      text: 'Name',
-      value: 'name'
-    },
-    {
-      text: 'Relationship Type',
-      value: 'relationshipType'
+    headers = [
+        {
+            text: 'ID',
+            align: 'left',
+            value: 'id'
+        },
+        {
+            text: 'Name',
+            value: 'name'
+        },
+        {
+            text: 'Relationship Type',
+            value: 'relationshipType'
+        },
+        {
+            text: 'Delete',
+            value: 'delete'
+        }
+    ];
+    guest = new Guest(null, '', null);
+    guests: Guest[] = [];
+
+    save () {
+        GuestService.save(this.guest);
+        this.guest = new Guest(null, '', null);
     }
-  ];
-  guest = new Guest(null, '', null);
-  guests: Guest[] = [];
 
-  save () {
-    GuestService.save(this.guest);
-    this.guest = new Guest(null, '', null);
-  }
-
-  remove (guest: Guest) {
+    remove (guest: Guest) {
         GuestService.delete(guest)
             .then(() => {
                 let index = this.guests.indexOf(guest)
@@ -73,7 +77,14 @@ export default class NewGuest extends Vue {
             error => {
                 console.log(error)
             })
-  }
+    }
+
+    created () {
+        GuestService.getAll()
+            .then(getResponse => {
+                this.guests = getResponse.data
+            })
+    }
 }
 </script>
 
