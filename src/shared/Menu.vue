@@ -1,7 +1,7 @@
 <template>
   <v-toolbar color="#8F1C2C" class="menu__header" name="navbar">
     <router-link to="/" class="menu__header_db1info">
-        <img class="menu__header" src="https://db1global.sharepoint.com/sites/intranet/Central%20de%20documentos%20PDF/Imagens%20Oficiais/ORG_LOGO_DB1_BRANCO.png"/>
+        <img class="menu__header" src="../assets/db1logo.png"/>
     </router-link>
 
     <v-spacer/>
