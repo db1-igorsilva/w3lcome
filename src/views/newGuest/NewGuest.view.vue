@@ -22,12 +22,12 @@
 
         <br>
 
-        <v-data-table :headers="headers" :items="guests" class="not_full_width elevation-1">
-            <template v-slot:items="guests">
-                <td> {{ guests.item.id }} </td>
-                <td> {{ guests.item.name }} </td>
-                <td> {{ guests.item.relationshipType }} </td>
-                <td> <v-btn class="button" @click="remove(guests.item)"> Delete </v-btn> </td>
+        <v-data-table :headers="headers" :items="filteredVisits()" class="not_full_width elevation-1">
+            <template v-slot:items="filteredVisits">
+                <td> {{ filteredVisits.item.id }} </td>
+                <td> {{ filteredVisits.item.name }} </td>
+                <td> {{ filteredVisits.item.relationshipType }} </td>
+                <td> <v-btn class="button" @click="remove(filteredVisits.item)"> Delete </v-btn> </td>
             </template>
         </v-data-table>
     </div>
@@ -62,6 +62,15 @@ export default class NewGuest extends Vue {
     ];
     guest = new Guest(null, '', null);
     guests: Guest[] = [];
+    typedFilter = '';
+
+    filteredVisits () {
+      if (this.typedFilter) {
+        let wordFilter = new RegExp(this.typedFilter.trim(), 'i')
+        return this.guests.filter(guest => wordFilter.test(guest.name))
+      }
+      return this.guests
+    }
 
     save () {
         GuestService.save(this.guest).then(response => {
