@@ -2,8 +2,11 @@
   <center>
         <div class="not_full_width">
             <div class="datetime">
-              <label class="datetime time_label"> Guest Name </label>
-              <input type="text" placeholder="Guest Name" id="compareStartDate" name="compareStartDate" class="datetime__field" @input="typedFilter = $event.target.value"/>
+              <v-text-field
+                label="Guest"
+                id="guest"
+                name="guest"
+                v-model="typedFilter"/>
               <label class="datetime time_label"> First Date </label>
               <input type="date" id="compareStartDate" name="compareStartDate" class="datetime__field" @input="compareStartDate = $event.target.value"/>
               <label class="datetime time_label"> Last Date </label>
