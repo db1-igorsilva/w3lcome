@@ -25,9 +25,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import Guest from '@/domain/guest/Guest.entity'
 
 @Component({})
 export default class NewGuest extends Vue {
+  guest = new Guest(null, null);
 }
 </script>
 
