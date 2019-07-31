@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Visits from '@/views/visits/Visits.view.vue'
 import NewVisit from '@/views/newVisit/NewVisit.view.vue'
-import Guests from '@/views/Guests/Guests.view.vue'
+import Guests from '@/views/guests/Guests.view.vue'
 
 Vue.use(Router)
 
@@ -27,7 +27,7 @@ export default new Router({
     },
     {
       path: '/Guests',
-      name: 'Guests',
+      name: 'guests',
       component: Guests
     }
   ]

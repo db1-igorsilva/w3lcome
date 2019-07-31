@@ -47,7 +47,7 @@ import Guest from '@/domain/guest/Guest.entity'
 import GuestService from '@/domain/guest/Guest.service'
 
 @Component({})
-export default class NewGuest extends Vue {
+export default class Guests extends Vue {
     headers = [
         {
             text: 'ID',
