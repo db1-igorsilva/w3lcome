@@ -14,7 +14,7 @@
             <v-btn flat class="menu__header_button" style="color: #FFF"> New Visit </v-btn>
         </router-link>
         <router-link to="/newGuest" class="menu__header">
-            <v-btn flat class="menu__header_button" style="color: #FFF"> New Guest </v-btn>
+            <v-btn flat class="menu__header_button" style="color: #FFF"> Guests </v-btn>
         </router-link>
     </v-toolbar-items>
   </v-toolbar>
