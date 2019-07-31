@@ -5,14 +5,12 @@
 
         <v-text-field
             label="Guest"
-            :counter="160"
             id="guest"
             name="guest"
             v-model="visit.guest"/>
 
         <v-text-field
             label="W3lcome Text"
-            :counter="500"
             id="welcomeText"
             name="welcomeText"
             v-model="visit.welcomeText"/>
@@ -33,7 +31,6 @@
         <v-form class="not_full_width" @submit.prevent="addPerson">
             <v-text-field
                 label="Person"
-                :counter="160"
                 id="person"
                 name="person"
                 v-model="person"/>
