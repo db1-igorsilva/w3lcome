@@ -3,7 +3,7 @@
         <div class="not_full_width">
             <div class="datetime">
               <v-text-field
-                label="Guest"
+                label="Filter by Guest"
                 id="guest"
                 name="guest"
                 v-model="typedFilter"/>
