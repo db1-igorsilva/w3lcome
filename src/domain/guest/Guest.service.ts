@@ -11,7 +11,7 @@ export default class GuestService {
         alert('Every Guest has a Relationship Type.')
         throw new Error('Every Guest has a Relationship Type.')
     }
-    return http.post('visitPerson/post', guest)
+    return http.post('guest/post', guest)
   }
 
   static getAll () {
